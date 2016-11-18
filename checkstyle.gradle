@@ -2,7 +2,7 @@ apply plugin: 'checkstyle'
 
 checkstyle {
     toolVersion '6.8'
-    configFile project.projectDir.file('checkstyle.xml')
+    configFile project.file('checkstyle.xml')
     showViolations true
     configProperties = [
             'checkstyle.cache.file': rootProject.file('build/checkstyle.cache'),
