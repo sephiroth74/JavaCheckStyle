@@ -2,7 +2,17 @@ apply plugin: 'checkstyle'
 
 checkstyle {
     toolVersion '6.8'
-    configFile file("${rootProject.projectDir}/JavaCheckStyle/checkstyle.xml")
+
+    def f = new File("${rootProject.rootDir}/gradle/checkstyle.xml")
+    if (!f.exists()) {
+        new URL('https://raw.githubusercontent.com/sephiroth74/JavaCheckStyle/2.0.0/checkstyle.xml').withInputStream { i ->
+            f.withOutputStream {
+                it << i
+            }
+        }
+    }
+
+    configFile file(f.absolutePath)
     showViolations true
     configProperties = [
             'checkstyle.cache.file': rootProject.file('build/checkstyle.cache'),
